@@ -46,8 +46,8 @@ dependencies {
     compile 'com.android.support:support-v4:26.+'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.0.0-RC1'
 
-    //Gson
-    compile group: 'com.google.code.gson', name: 'gson', version: '2.3.1'
+    //Json
+    compile 'com.beust:klaxon:0.30'
 
 
 
