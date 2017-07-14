@@ -2,6 +2,7 @@ package pt.joaocruz.myrecipeschallenge.dagger
 
 import dagger.Component
 import pt.joaocruz.myrecipeschallenge.recipes_screen.RecipesViewImpl
+import pt.joaocruz.myrecipeschallenge.use_case.GetFeedUseCase
 import javax.inject.Singleton
 
 /**
@@ -14,5 +15,5 @@ import javax.inject.Singleton
 interface AppComponent {
 
     fun inject(recipesViewImpl: RecipesViewImpl)
-
+    fun inject(feedUseCase: GetFeedUseCase)
 }

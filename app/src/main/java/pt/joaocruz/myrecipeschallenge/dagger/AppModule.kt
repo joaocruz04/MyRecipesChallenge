@@ -16,8 +16,8 @@ import javax.inject.Singleton
 class AppModule {
 
     @Provides
-    internal fun provideRecipesPresenter(servicesManager: ServicesManager): RecipesPresenter {
-        return RecipesPresenterImpl(servicesManager)
+    internal fun provideRecipesPresenter(): RecipesPresenter {
+        return RecipesPresenterImpl()
     }
 
     @Singleton
