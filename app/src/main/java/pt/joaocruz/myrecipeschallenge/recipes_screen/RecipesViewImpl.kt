@@ -3,19 +3,27 @@ package pt.joaocruz.myrecipeschallenge.recipes_screen
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
+import android.view.Menu
+import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_recipes_view_impl.*
 import org.jetbrains.anko.dip
 import pt.joaocruz.myrecipeschallenge.App
 import pt.joaocruz.myrecipeschallenge.R
 import pt.joaocruz.myrecipeschallenge.model.Recipe
 import javax.inject.Inject
+import android.view.MenuInflater
+import android.widget.Toast
+import org.jetbrains.anko.toast
+import pt.joaocruz.myrecipeschallenge.model.User
+import pt.joaocruz.myrecipeschallenge.ui.LoginDialog
 
 
-class RecipesViewImpl : RecipesView, AppCompatActivity() {
+class RecipesViewImpl : RecipesView, AppCompatActivity(), LoginDialog.LoginDialogListener {
 
     @Inject
     lateinit var presenter: RecipesPresenter
     private var adapter: GridAdapter?=null
+    private var loginDialog: LoginDialog?=null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,9 +34,7 @@ class RecipesViewImpl : RecipesView, AppCompatActivity() {
         presenter.getRecipes()
     }
 
-    override fun updateWithRecipes(recipes: ArrayList<Recipe>) {
-        adapter?.addItems(recipes)
-    }
+
 
     fun setupRecyclerView() {
         adapter = GridAdapter()
@@ -36,4 +42,70 @@ class RecipesViewImpl : RecipesView, AppCompatActivity() {
         recyclerView.addItemDecoration(GridAdapter.SpacesItemDecoration(dip(2.5F)))
         recyclerView.adapter = adapter
     }
+
+
+
+    // Interface
+    override fun updateWithRecipes(recipes: ArrayList<Recipe>) {
+        adapter?.addItems(recipes)
+    }
+
+
+
+    // Login
+
+    fun loginButtonPressed() {
+        loginDialog = LoginDialog().listener(this)
+        loginDialog?.show(supportFragmentManager, "logindialog")
+    }
+
+    override fun onLoginSubmit(email: String, password: String) {
+        presenter.loginWithEmailAndPassword(email, password)
+    }
+
+    override fun showLoginErrorMessage(message: String) {
+        toast(message)
+    }
+
+    override fun showProcessingDialog() {
+
+    }
+
+    override fun hideProcessingDialog() {
+
+    }
+
+    override fun loginSuccess(user: User) {
+        hideLoginDialogIfShown()
+    }
+
+    override fun showLoginParametersErrorMessage(message: String) {
+        toast(message)
+    }
+
+    fun hideLoginDialogIfShown() {
+        loginDialog?.dismiss()
+    }
+
+    // Menu
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        val inflater = menuInflater
+        inflater.inflate(R.menu.home_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.action_login -> {
+                loginButtonPressed()
+                return true
+            }
+            else ->
+                return super.onOptionsItemSelected(item)
+        }
+    }
+
+
+
 }

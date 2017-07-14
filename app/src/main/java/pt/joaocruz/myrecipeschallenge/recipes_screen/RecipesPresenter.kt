@@ -7,4 +7,5 @@ interface RecipesPresenter {
 
     fun registerView(view: RecipesView)
     fun getRecipes()
+    fun loginWithEmailAndPassword(email: String, password: String)
 }

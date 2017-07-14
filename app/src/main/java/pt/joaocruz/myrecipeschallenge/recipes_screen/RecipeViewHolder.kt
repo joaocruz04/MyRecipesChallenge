@@ -21,11 +21,13 @@ class RecipeViewHolder (view: View) : RecyclerView.ViewHolder(view) {
     val image: ImageView = view.findViewById(R.id.thumbnail)
     val title: TextView = view.findViewById(R.id.title)
     val headline: TextView = view.findViewById(R.id.headline)
+    val difficulty: TextView = view.findViewById(R.id.difficulty)
 
     fun bindRecipe(recipe: Recipe, height: Int) {
         title.text = recipe.name ?: ""
         headline.text = recipe.headline ?: ""
         headline.height = height
+        difficulty.text = "${recipe.difficulty?:"-"}"
 
         ImageLoader.getInstance().loadImage(recipe.image, object: ImageLoadingListener{
             override fun onLoadingComplete(imageUri: String?, view: View?, loadedImage: Bitmap?) {
