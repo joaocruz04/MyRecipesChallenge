@@ -39,19 +39,18 @@ class RecipesPresenterImpl : RecipesPresenter {
             view?.showLoginParametersErrorMessage(emailError)
         else if (!validPassword)
             view?.showLoginParametersErrorMessage(passwordError)
-
-        view?.showProcessingDialog()
-
-        LoginUseCase(email, password).build()
-                .subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe {
-                    if (it==null || it.email==null)
-                        view?.showLoginErrorMessage("Invalid login")
-                    else
-                        view?.loginSuccess(it)
-                }
-
+        else {
+            view?.showProcessingDialog()
+            LoginUseCase(email, password).build()
+                    .subscribeOn(Schedulers.newThread())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe {
+                        if (it == null || it.email == null)
+                            view?.showLoginErrorMessage("Invalid login")
+                        else
+                            view?.loginSuccess(it)
+                    }
+        }
     }
 
     fun validEmail(email: String): Boolean {
