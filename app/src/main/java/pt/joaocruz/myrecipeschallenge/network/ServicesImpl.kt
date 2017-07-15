@@ -15,7 +15,7 @@ import java.io.IOException
 /**
  * Created by jcruz on 13.07.17.
  */
-class ServicesImpl : ServicesManager {
+open class ServicesImpl : ServicesManager {
 
     override fun login(email: String, password: String): Observable<User> {
         return Observable.just(User())

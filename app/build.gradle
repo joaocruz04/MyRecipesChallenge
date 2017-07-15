@@ -56,6 +56,8 @@ dependencies {
     // Ratings
     compile 'me.zhanghai.android.materialratingbar:library:1.0.2'
 
+    // Mockito
+    testCompile "org.mockito:mockito-core:2.+"
 
 }
 repositories {

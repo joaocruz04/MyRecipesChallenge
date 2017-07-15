@@ -9,17 +9,21 @@ import pt.joaocruz.myrecipeschallenge.network.ServicesManager
 /**
  * Created by jcruz on 13.07.17.
  */
-class LoginUseCase : UseCase {
+open class LoginUseCase : UseCase {
 
     var sm : ServicesManager
     var email: String?=null
     var password: String?=null
 
 
-    constructor(servicesManager: ServicesManager, email: String, password: String) {
+    constructor(servicesManager: ServicesManager) {
+        this.sm = servicesManager
+    }
+
+    fun withEmailAndPassword(email: String, password: String): LoginUseCase {
         this.email = email
         this.password = password
-        this.sm = servicesManager
+        return this
     }
 
 

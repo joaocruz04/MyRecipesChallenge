@@ -1,5 +1,6 @@
 package pt.joaocruz.myrecipeschallenge.recipes_screen
 
+import io.reactivex.Scheduler
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import pt.joaocruz.myrecipeschallenge.data.DataManager
@@ -7,15 +8,20 @@ import pt.joaocruz.myrecipeschallenge.model.Recipe
 import pt.joaocruz.myrecipeschallenge.network.ServicesManager
 import pt.joaocruz.myrecipeschallenge.use_case.GetFeedUseCase
 import pt.joaocruz.myrecipeschallenge.use_case.LoginUseCase
+import java.util.regex.Pattern
 
 /**
  * Created by jcruz on 13.07.17.
  */
-class RecipesPresenterImpl(servicesManager: ServicesManager, dataManager: DataManager) : RecipesPresenter {
+class RecipesPresenterImpl(servicesManager: ServicesManager, dataManager: DataManager, loginUseCase: LoginUseCase, ioScheduler: Scheduler, threadScheduler: Scheduler) : RecipesPresenter {
 
     var view : RecipesView?=null
     var servicesManager = servicesManager
     var dataManager = dataManager
+    var loginUseCase = loginUseCase
+    private val ioScheduler = ioScheduler
+    private val threadScheduler = threadScheduler
+
 
     override fun registerView(view: RecipesView) {
         this.view = view
@@ -46,23 +52,33 @@ class RecipesPresenterImpl(servicesManager: ServicesManager, dataManager: DataMa
             view?.showLoginParametersErrorMessage(passwordError)
         else {
             view?.showProcessingDialog()
-            LoginUseCase(servicesManager, email, password).build()
-                    .subscribeOn(Schedulers.newThread())
-                    .observeOn(AndroidSchedulers.mainThread())
+            loginUseCase
+                    .withEmailAndPassword(email, password)
+                    .build()
+                    .subscribeOn(threadScheduler)
+                    .observeOn(ioScheduler)
                     .subscribe {
-                        if (it.email == null)
+                        if (it.email == null) {
                             view?.showLoginErrorMessage("Invalid login")
-                        else
+                        }
+                        else {
                             view?.loginSuccess(it)
+                        }
                     }
         }
     }
 
-    private fun validEmail(email: String): Boolean {
-        return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
+    fun validEmail(email: String?): Boolean {
+        if (email==null || email.isEmpty())
+            return false
+        else {
+            val pattern = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$"
+            val patternTool = Pattern.compile(pattern)
+            return patternTool.matcher(email).matches()
+        }
     }
 
-    private fun validPassword(password: String?): Boolean {
+    fun validPassword(password: String?): Boolean {
         return (password!=null && password.count()>4)
     }
 

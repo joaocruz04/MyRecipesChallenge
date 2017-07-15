@@ -19,14 +19,19 @@ import android.widget.Toast
 import org.jetbrains.anko.toast
 import pt.joaocruz.myrecipeschallenge.model.User
 import pt.joaocruz.myrecipeschallenge.recipe_screen.RecipePageViewImpl
+import pt.joaocruz.myrecipeschallenge.ui.AlertInterface
 import pt.joaocruz.myrecipeschallenge.ui.LoginDialog
+import pt.joaocruz.myrecipeschallenge.ui.ToastAlert
 
 
-class RecipesViewImpl : RecipesView, AppCompatActivity(), LoginDialog.LoginDialogListener, GridAdapter.OnItemClickListener {
+open class RecipesViewImpl : RecipesView, AppCompatActivity(), LoginDialog.LoginDialogListener, GridAdapter.OnItemClickListener {
 
 
     @Inject
     lateinit var presenter: RecipesPresenter
+
+    var alertManager: AlertInterface?=null
+
     private var adapter: GridAdapter?=null
     private var loginDialog: LoginDialog?=null
 
@@ -35,6 +40,7 @@ class RecipesViewImpl : RecipesView, AppCompatActivity(), LoginDialog.LoginDialo
         setContentView(R.layout.activity_recipes_view_impl)
         setTitle("Recipes List")
         App.getInstance().appComponent.inject(this)
+        alertManager = ToastAlert()
         setupRecyclerView()
         presenter.registerView(this)
         presenter.getRecipes()
@@ -83,7 +89,7 @@ class RecipesViewImpl : RecipesView, AppCompatActivity(), LoginDialog.LoginDialo
     }
 
     override fun showLoginParametersErrorMessage(message: String) {
-        toast(message)
+        alertManager?.showMessage(this, message)//
     }
 
     fun hideLoginDialogIfShown() {
