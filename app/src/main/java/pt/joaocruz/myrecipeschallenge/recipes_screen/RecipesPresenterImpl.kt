@@ -2,22 +2,27 @@ package pt.joaocruz.myrecipeschallenge.recipes_screen
 
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import pt.joaocruz.myrecipeschallenge.data.DataManager
+import pt.joaocruz.myrecipeschallenge.model.Recipe
+import pt.joaocruz.myrecipeschallenge.network.ServicesManager
 import pt.joaocruz.myrecipeschallenge.use_case.GetFeedUseCase
 import pt.joaocruz.myrecipeschallenge.use_case.LoginUseCase
 
 /**
  * Created by jcruz on 13.07.17.
  */
-class RecipesPresenterImpl : RecipesPresenter {
+class RecipesPresenterImpl(servicesManager: ServicesManager, dataManager: DataManager) : RecipesPresenter {
 
     var view : RecipesView?=null
+    var servicesManager: ServicesManager? = servicesManager
+    var dataManager: DataManager?=dataManager
 
     override fun registerView(view: RecipesView) {
         this.view = view
     }
 
     override fun getRecipes() {
-        GetFeedUseCase().build()
+        GetFeedUseCase(servicesManager).build()
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe {
@@ -45,7 +50,7 @@ class RecipesPresenterImpl : RecipesPresenter {
                     .subscribeOn(Schedulers.newThread())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe {
-                        if (it == null || it.email == null)
+                        if (it.email == null)
                             view?.showLoginErrorMessage("Invalid login")
                         else
                             view?.loginSuccess(it)
@@ -53,11 +58,18 @@ class RecipesPresenterImpl : RecipesPresenter {
         }
     }
 
-    fun validEmail(email: String): Boolean {
+    private fun validEmail(email: String): Boolean {
         return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
     }
 
-    fun validPassword(password: String?): Boolean {
+    private fun validPassword(password: String?): Boolean {
         return (password!=null && password.count()>4)
+    }
+
+    override fun recipeSelected(recipe: Recipe?) {
+        if (recipe!=null) {
+            dataManager?.storeRecipe(recipe)
+            view?.showRecipeDetailPage(recipe)
+        }
     }
 }

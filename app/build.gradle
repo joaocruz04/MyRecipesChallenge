@@ -53,6 +53,9 @@ dependencies {
     // Anko
     compile "org.jetbrains.anko:anko-commons:$anko_version"
 
+    // Ratings
+    compile 'me.zhanghai.android.materialratingbar:library:1.0.2'
+
 
 }
 repositories {

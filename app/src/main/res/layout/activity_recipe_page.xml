@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="220dp">
+                <ImageView
+                    android:id="@+id/image"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    />
+
+                <me.zhanghai.android.materialratingbar.MaterialRatingBar
+                    android:background="#AAFFFFFF"
+                    android:padding="5dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:id="@+id/ratingBar"
+                    android:layout_width="100dp"
+                    android:layout_height="30dp"
+                    style="@style/Widget.MaterialRatingBar.RatingBar" />
+
+
+            </RelativeLayout>
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="15dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/titleLbl"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="title"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/headlineLbl"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="headline"
+                            android:textSize="16sp" />
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Difficulty:"
+                            android:textSize="14sp"
+                            />
+
+                        <TextView
+                            android:id="@+id/difficultyLbl"
+                            android:layout_width="40dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:textSize="22sp"
+                            android:textStyle="bold"
+                            android:text="0.0"
+                            />
+
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_marginTop="15dp"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Calories"
+                            android:gravity="center"
+                            android:textSize="14sp"
+                            android:textColor="#BBBBBB"
+                            />
+
+                        <TextView
+                            android:id="@+id/calories"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="0 g"
+                            android:textSize="16sp"
+                            android:gravity="center"
+                            android:textColor="#555555"
+                            />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Carbos"
+                            android:gravity="center"
+                            android:textSize="14sp"
+                            android:textColor="#BBBBBB"
+                            />
+
+                        <TextView
+                            android:id="@+id/carbos"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="0 g"
+                            android:textSize="16sp"
+                            android:gravity="center"
+                            android:textColor="#555555"
+                            />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Fats"
+                            android:gravity="center"
+                            android:textSize="14sp"
+                            android:textColor="#BBBBBB"
+                            />
+
+                        <TextView
+                            android:id="@+id/fats"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="0 g"
+                            android:textSize="16sp"
+                            android:gravity="center"
+                            android:textColor="#555555"
+                            />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Fibers"
+                            android:gravity="center"
+                            android:textSize="14sp"
+                            android:textColor="#BBBBBB"
+                            />
+
+                        <TextView
+                            android:id="@+id/fibers"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="0 g"
+                            android:textSize="16sp"
+                            android:gravity="center"
+                            android:textColor="#555555"
+                            />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Proteins"
+                            android:gravity="center"
+                            android:textSize="14sp"
+                            android:textColor="#BBBBBB"
+                            />
+
+                        <TextView
+                            android:id="@+id/proteins"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="0 g"
+                            android:textSize="16sp"
+                            android:gravity="center"
+                            android:textColor="#555555"
+                            />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+                <TextView
+                    android:layout_marginTop="15dp"
+                    android:id="@+id/description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:layout_marginTop="15dp"
+                    android:textSize="14sp"
+                    android:textColor="#BBBBBB"
+                    android:text="Deliverable ingredients"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:layout_marginTop="5dp"
+                    android:id="@+id/deliverableIngredients"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:layout_marginTop="15dp"
+                    android:textSize="14sp"
+                    android:textColor="#BBBBBB"
+                    android:text="Undeliverable ingredients"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:layout_marginTop="5dp"
+                    android:id="@+id/undeliverableIngredients"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+
+
+
+    </ScrollView>
+
+</LinearLayout>

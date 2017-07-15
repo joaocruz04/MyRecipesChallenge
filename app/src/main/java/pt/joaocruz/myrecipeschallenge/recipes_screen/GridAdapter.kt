@@ -3,7 +3,6 @@ package pt.joaocruz.myrecipeschallenge.recipes_screen
 import android.content.Context
 import android.graphics.Point
 import android.graphics.Rect
-import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
@@ -23,10 +22,12 @@ class GridAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val recipes: ArrayList<Recipe> = ArrayList()
     private var recyclerView: RecyclerView?=null
     private val heights: ArrayList<Int> = ArrayList()
+    private var clickListener: OnItemClickListener?=null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        var inflatedView = parent.inflate(R.layout.recipe_list_item)
-        return RecipeViewHolder(inflatedView)
+        val inflatedView = parent.inflate(R.layout.recipe_list_item)
+        val holder = RecipeViewHolder(inflatedView, this)
+        return holder
     }
 
     override fun getItemCount(): Int {
@@ -41,6 +42,17 @@ class GridAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         }
     }
 
+    fun onItemClick(recipe: Recipe) {
+        clickListener?.onItemClicked(recipe)
+    }
+
+    fun setOnItemClickListener(listener: OnItemClickListener) {
+        this.clickListener = listener
+    }
+
+    fun getItemAt(position: Int): Recipe {
+        return recipes[position]
+    }
 
     // Computes the heights of a complete row of items, checking which is the highest
     fun computeHeights(position: Int, holder: RecipeViewHolder) {
@@ -49,9 +61,9 @@ class GridAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             val m2 = measureTextViewsHeightAt(position+1, holder)
             if (m2.third>m1.third) {
                 heights.add(m2.third - m1.first)
-                heights.add(m2.third - m1.first)
+                heights.add(m2.second)
             } else {
-                heights.add(m1.third - m2.first)
+                heights.add(m1.second)
                 heights.add(m1.third - m2.first)
             }
         } else
@@ -83,7 +95,7 @@ class GridAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
 
     fun getTextViewHeight(textView: TextView): Int {
-        var w = deviceWidth()/2 - App.getInstance().dip(20F)
+        var w = (deviceWidth()-App.getInstance().dip(2.5F))/2 - App.getInstance().dip(20F)
         val widthMeasureSpec = View.MeasureSpec.makeMeasureSpec(w, View.MeasureSpec.AT_MOST)
         val heightMeasureSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
         textView.measure(widthMeasureSpec, heightMeasureSpec)
@@ -105,6 +117,10 @@ class GridAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             outRect.bottom = space
             outRect.top = space
         }
+    }
+
+    interface OnItemClickListener {
+        fun onItemClicked(recipe: Recipe)
     }
 }
 

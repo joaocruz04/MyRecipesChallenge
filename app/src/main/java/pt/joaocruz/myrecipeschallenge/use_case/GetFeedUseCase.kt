@@ -4,20 +4,20 @@ import de.geschenkidee.geschenkidee.usecase.UseCase
 import io.reactivex.Observable
 import pt.joaocruz.myrecipeschallenge.App
 import pt.joaocruz.myrecipeschallenge.model.Recipe
+import pt.joaocruz.myrecipeschallenge.network.ServicesImpl
 import pt.joaocruz.myrecipeschallenge.network.ServicesManager
 import javax.inject.Inject
 
 /**
  * Created by jcruz on 13.07.17.
  */
-class GetFeedUseCase : UseCase {
+class GetFeedUseCase(servicesManager: ServicesManager?) : UseCase {
 
-    @Inject
-    lateinit var sm : ServicesManager
+    var sm: ServicesManager?=servicesManager
 
     override fun build(): Observable<ArrayList<Recipe>> {
         App.getInstance().appComponent.inject(this)
-        return sm.getRecipes()
+        return sm?.getRecipes()?: Observable.just(ArrayList<Recipe>())
     }
 
 

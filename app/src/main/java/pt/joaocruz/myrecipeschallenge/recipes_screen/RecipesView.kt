@@ -14,4 +14,5 @@ interface RecipesView {
     fun hideProcessingDialog()
     fun loginSuccess(user: User)
     fun showLoginParametersErrorMessage(message: String)
+    fun showRecipeDetailPage(recipe: Recipe)
 }

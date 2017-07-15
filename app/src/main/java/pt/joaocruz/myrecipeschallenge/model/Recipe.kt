@@ -23,6 +23,7 @@ class Recipe {
     var products: List<String>?=null
     var proteins: String?=null
     var ratings: Float?=null
+    var rating: Float?=null
     var thumb: String?=null
     var time: String?=null
     var undeliverable_ingredients: List<String>?=null
