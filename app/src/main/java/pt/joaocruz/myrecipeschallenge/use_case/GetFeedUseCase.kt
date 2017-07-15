@@ -11,13 +11,13 @@ import javax.inject.Inject
 /**
  * Created by jcruz on 13.07.17.
  */
-class GetFeedUseCase(servicesManager: ServicesManager?) : UseCase {
+class GetFeedUseCase(servicesManager: ServicesManager) : UseCase {
 
-    var sm: ServicesManager?=servicesManager
+    var sm: ServicesManager = servicesManager
 
     override fun build(): Observable<ArrayList<Recipe>> {
         App.getInstance().appComponent.inject(this)
-        return sm?.getRecipes()?: Observable.just(ArrayList<Recipe>())
+        return sm.getRecipes()
     }
 
 

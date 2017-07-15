@@ -49,7 +49,7 @@ class RecipesViewImpl : RecipesView, AppCompatActivity(), LoginDialog.LoginDialo
     }
 
     override fun onItemClicked(recipe: Recipe) {
-        presenter?.recipeSelected(recipe)
+        presenter.recipeSelected(recipe)
     }
 
     // Interface
@@ -78,14 +78,6 @@ class RecipesViewImpl : RecipesView, AppCompatActivity(), LoginDialog.LoginDialo
         toast(message)
     }
 
-    override fun showProcessingDialog() {
-
-    }
-
-    override fun hideProcessingDialog() {
-
-    }
-
     override fun loginSuccess(user: User) {
         hideLoginDialogIfShown()
     }
@@ -97,6 +89,17 @@ class RecipesViewImpl : RecipesView, AppCompatActivity(), LoginDialog.LoginDialo
     fun hideLoginDialogIfShown() {
         loginDialog?.dismiss()
     }
+
+    // Processing dialog
+
+    override fun showProcessingDialog() {
+        // Show the processing popup spinner
+    }
+
+    override fun hideProcessingDialog() {
+        // Hide the processing popup spinner
+    }
+
 
     // Menu
 

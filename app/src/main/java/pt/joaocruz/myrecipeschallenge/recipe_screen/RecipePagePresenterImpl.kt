@@ -10,7 +10,7 @@ import pt.joaocruz.myrecipeschallenge.use_case.FavoriteUseCase
 /**
  * Created by joaocruz04 on 15/07/2017.
  */
-class RecipePagePresenterImpl(servicesManager: ServicesManager?, dataManager: DataManager?) : RecipePagePresenter {
+class RecipePagePresenterImpl(servicesManager: ServicesManager, dataManager: DataManager) : RecipePagePresenter {
 
     val sm = servicesManager
     val dm = dataManager
@@ -22,7 +22,7 @@ class RecipePagePresenterImpl(servicesManager: ServicesManager?, dataManager: Da
 
     override fun loadRecipe(id: String?) {
         if (id!=null) {
-            val recipe = dm?.loadRecipe(id)
+            val recipe = dm.loadRecipe(id)
             if (recipe != null)
                 view?.updateWithRecipe(recipe)
         }

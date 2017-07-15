@@ -14,12 +14,12 @@ import javax.inject.Inject
  */
 class FavoriteUseCase : UseCase {
 
-    var sm: ServicesManager?=null
-    var favorite: Boolean?=null
+    var sm: ServicesManager
+    var favorite: Boolean
     var recipe: Recipe?=null
 
 
-    constructor(servicesManager: ServicesManager?, recipe: Recipe, favorite: Boolean) {
+    constructor(servicesManager: ServicesManager, recipe: Recipe, favorite: Boolean) {
         this.favorite = favorite
         this.recipe = recipe
         this.sm = servicesManager
@@ -28,7 +28,7 @@ class FavoriteUseCase : UseCase {
 
     override fun build(): Observable<Boolean> {
         App.getInstance().appComponent.inject(this)
-        return sm?.favorite(recipe, favorite)?: Observable.just(false)
+        return sm.favorite(recipe, favorite)
     }
 
 

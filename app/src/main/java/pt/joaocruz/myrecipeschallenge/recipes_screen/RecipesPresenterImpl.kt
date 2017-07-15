@@ -14,8 +14,8 @@ import pt.joaocruz.myrecipeschallenge.use_case.LoginUseCase
 class RecipesPresenterImpl(servicesManager: ServicesManager, dataManager: DataManager) : RecipesPresenter {
 
     var view : RecipesView?=null
-    var servicesManager: ServicesManager? = servicesManager
-    var dataManager: DataManager?=dataManager
+    var servicesManager = servicesManager
+    var dataManager = dataManager
 
     override fun registerView(view: RecipesView) {
         this.view = view
@@ -46,7 +46,7 @@ class RecipesPresenterImpl(servicesManager: ServicesManager, dataManager: DataMa
             view?.showLoginParametersErrorMessage(passwordError)
         else {
             view?.showProcessingDialog()
-            LoginUseCase(email, password).build()
+            LoginUseCase(servicesManager, email, password).build()
                     .subscribeOn(Schedulers.newThread())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe {
@@ -68,7 +68,7 @@ class RecipesPresenterImpl(servicesManager: ServicesManager, dataManager: DataMa
 
     override fun recipeSelected(recipe: Recipe?) {
         if (recipe!=null) {
-            dataManager?.storeRecipe(recipe)
+            dataManager.storeRecipe(recipe)
             view?.showRecipeDetailPage(recipe)
         }
     }
